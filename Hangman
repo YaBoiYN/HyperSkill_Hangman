@@ -1,0 +1,73 @@
+import random
+import string
+words = ['python', 'java', 'kotlin', 'javascript']
+answer = random.choice(words)
+hint = answer.split()
+set_answer = set(answer)
+length = len(answer)
+guessed = list()
+
+lis =(length * '-')
+list_answer = list(lis)
+
+tries = 8
+def choice():
+    user = input('Input a letter:')
+    return user
+def right_choice():
+    global set_answer
+    global lis
+    set_answer.remove(guess)
+    position = answer.find(guess)
+    list_answer[position] = guess
+    lis = ''.join(list_answer)
+    position2 = answer.rfind(guess)
+    if position2 == -1:
+        None
+    else:
+        list_answer[position2] = guess
+        lis = ''.join(list_answer)
+def menu():
+    start = input('Type "play" to play the game, "exit" to quit:')
+    if start == 'play':
+        return 1
+    if start == 'exit':
+        return 0
+    
+    
+    
+#FINAL OPERATIONS
+print('''H A N G M A N
+ ''')
+while True:
+    start_action = menu()
+    if start_action == 0:
+        break
+    elif start_action == 1:
+        result = "You are hanged!"
+        while tries != 0:
+            if '-' not in lis:
+                print('You guessed the word!')
+                result = 'You survived!'
+        #COMMAND PROMPT
+            print()
+            print(lis)
+            guess = choice()
+        #ERRORS & CHOICES
+            if len(guess) != 1:
+                print('You should input a single letter')
+                continue
+            elif guess in guessed:
+                print('You already typed this letter')
+                continue
+            elif guess not in string.ascii_lowercase:
+                print('It is not an ASCII lowercase letter')
+                continue
+            elif guess not in set_answer and guess not in lis:
+                print('No such letter in the word')
+                tries -= 1
+            else:
+                right_choice()
+            guessed.append(guess)
+        print(result)
+ 
